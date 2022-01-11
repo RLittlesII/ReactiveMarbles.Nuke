@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveMarbles.Nuke", "ReactiveMarbles.Nuke\ReactiveMarbles.Nuke.csproj", "{BAD67CB7-835F-45FC-93A5-9797DB3F2143}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

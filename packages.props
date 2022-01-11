@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ItemGroup>
+    <!-- <GlobalPackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="2.9.8" /> -->
+    <GlobalPackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" />
+    <GlobalPackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" />
+    <GlobalPackageReference Include="Rocket.Surgery.MSBuild.CI" Version="1.1.0" />
+    <GlobalPackageReference Include="Rocket.Surgery.MSBuild.GitVersion" Version="1.1.0" />
+    <GlobalPackageReference Include="Rocket.Surgery.MSBuild.JetBrains.Annotations" Version="1.1.0" Condition="'$(MSBuildProjectName)'!='.build'" />
+    <GlobalPackageReference Include="Rocket.Surgery.MSBuild.Metadata" Version="1.1.0" />
+    <GlobalPackageReference Include="Rocket.Surgery.MSBuild.SourceLink" Version="1.1.0" />
+    <GlobalPackageReference Include="Roslynator.Analyzers" Version="3.2.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Buildalyzer" Version="3.2.3" />
+    <PackageReference Update="GitVersion.Tool" Version="5.7.0" />
+    <PackageReference Update="Humanizer.Core" Version="2.11.10" />
+    <PackageReference Update="Nuke.Common" Version="5.*" />
+    <PackageReference Update="ReportGenerator" Version="4.8.13" />
+    <PackageReference Update="YamlDotNet" Version="11.2.1" />
+    <PackageReference Update="JetBrains.ReSharper.GlobalTools" Version="2021.2.1" />
+    <PackageReference Update="Microsoft.Build" Version="16.11.0" />
+    <PackageReference Update="Microsoft.Build.Framework" Version="16.11.0" />
+    <PackageReference Update="Microsoft.Build.Tasks.Core" Version="16.11.0" />
+    <PackageReference Update="Microsoft.Build.Utilities.Core" Version="16.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Nerdbank.GitVersioning" Version="3.4.231">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="StyleCop.Analyzers" Version="1.2.0-beta.354">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="Roslynator.Analyzers" Version="3.2.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)/Packages.support.props" Condition="Exists('$(MSBuildThisFileDirectory)/Packages.support.props')" />
+</Project>
