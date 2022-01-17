@@ -2,15 +2,34 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveMarbles.Nuke", "ReactiveMarbles.Nuke\ReactiveMarbles.Nuke.csproj", "{BAD67CB7-835F-45FC-93A5-9797DB3F2143}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = ".build", "..\.build\.build.csproj", "{479D6008-44F7-436C-8E35-CF85ABF08095}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{1C59BE72-7768-48A9-874A-6863FE4C21F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{37FA6958-C21B-49CE-8C61-81F60326CBA5}"
+	ProjectSection(SolutionItems) = preProject
+		..\directory.build.props = ..\directory.build.props
+		..\directory.build.targets = ..\directory.build.targets
+		..\LICENSE = ..\LICENSE
+		..\packages.props = ..\packages.props
+		..\README.md = ..\README.md
+		..\version.json = ..\version.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{479D6008-44F7-436C-8E35-CF85ABF08095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{479D6008-44F7-436C-8E35-CF85ABF08095}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAD67CB7-835F-45FC-93A5-9797DB3F2143}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{479D6008-44F7-436C-8E35-CF85ABF08095} = {1C59BE72-7768-48A9-874A-6863FE4C21F5}
 	EndGlobalSection
 EndGlobal
