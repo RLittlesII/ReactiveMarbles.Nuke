@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{
 		..\directory.build.props = ..\directory.build.props
 		..\directory.build.targets = ..\directory.build.targets
 		..\LICENSE = ..\LICENSE
-		..\packages.props = ..\packages.props
 		..\README.md = ..\README.md
 		..\version.json = ..\version.json
+		..\directory.packages.props = ..\directory.packages.props
 	EndProjectSection
 EndProject
 Global
