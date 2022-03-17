@@ -73,14 +73,11 @@
             "enum": [
               "Build",
               "Clean",
-              "DotNetBuild",
-              "DotNetRestore",
-              "InstallNet5",
-              "InstallNet6",
-              "InstallNetCore",
+              "Default",
               "Nerdbank",
               "NerdbankIntegrationVersion",
               "Pack",
+              "Restore",
               "Test"
             ]
           }
@@ -97,14 +94,11 @@
             "enum": [
               "Build",
               "Clean",
-              "DotNetBuild",
-              "DotNetRestore",
-              "InstallNet5",
-              "InstallNet6",
-              "InstallNetCore",
+              "Default",
               "Nerdbank",
               "NerdbankIntegrationVersion",
               "Pack",
+              "Restore",
               "Test"
             ]
           }

@@ -18,15 +18,14 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
-class ReactiveMarblesBuild : NukeBuild
+partial class ReactiveMarblesBuild : NukeBuild
 {
     /// Support plugins are available for:
     ///   - JetBrains ReSharper        https://nuke.build/resharper
     ///   - JetBrains Rider            https://nuke.build/rider
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
-
-    public static int Main() => Execute<ReactiveMarblesBuild>(x => x.Build);
+    public static int Main() => Execute<ReactiveMarblesBuild>(x => x.Default);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -39,7 +38,7 @@ class ReactiveMarblesBuild : NukeBuild
     AbsolutePath OutputDirectory => RootDirectory / "output";
 
     Target Clean => _ => _
-        .Before(DotNetRestore)
+        .Before(Restore)
         .Executes(() =>
         {
             SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
@@ -47,63 +46,49 @@ class ReactiveMarblesBuild : NukeBuild
             EnsureCleanDirectory(OutputDirectory);
         });
 
-    Target DotNetRestore => _ => _
+    Target Restore => _ => _
         .Executes(() =>
-        {
-            DotNetTasks
-                .DotNetRestore(s => s
-                    .SetProjectFile(Solution));
-        });
+            DotNetRestore(configure => configure
+                    .SetProjectFile(Solution)));
 
-    Target DotNetBuild => _ => _
-        .DependsOn(DotNetRestore)
+    Target Build => _ => _
+        .DependsOn(Restore)
+        .DependsOn(Nerdbank)
         .Executes(() =>
         {
             DotNetTasks
-                .DotNetBuild(s => s
+                .DotNetBuild(configure => configure
                     .SetProjectFile(Solution)
                     .SetConfiguration(Configuration)
                     .EnableNoRestore()
                     .SetVerbosity(DotNetVerbosity.Minimal));
         });
 
-    Target InstallNetCore => _ => _.Executes(() =>
-    {
-    });
-
-    Target InstallNet5 => _ => _.Executes(() =>
-    {
-    });
-
-    Target InstallNet6 => _ => _.Executes(() =>
-    {
-    });
-
     Target Nerdbank => _ => _
         .DependsOn(Clean)
         .DependsOn(NerdbankIntegrationVersion)
+        .Before(Build)
         .Executes(() =>
-        {
-            Logger.Info("", Solution.AllProjects);
-            var (result, output) =
-                NerdbankGitVersioningTasks
-                .NerdbankGitVersioningGetVersion();
-        });
+            NerdbankGitVersioningTasks
+                .NerdbankGitVersioningGetVersion(configure =>
+                    configure
+                        .SetProcessWorkingDirectory("./")
+                        .SetFormat(NerdbankGitVersioningFormat.json)
+                        .EnableProcessLogOutput()));
 
     Target NerdbankIntegrationVersion => _ => _
         .DependsOn(Clean)
         .OnlyWhenStatic(() => IsServerBuild)
         .Executes(() =>
-        {
             NerdbankGitVersioningTasks
-                .NerdbankGitVersioningCloud(cfg =>
-                cfg.EnableAllVars()
-                    .SetProject(Solution.Directory)
-                    .SetCISystem(NerdbankGitVersioningCISystem.GitHubActions));
-        });
+                .NerdbankGitVersioningCloud(configure =>
+                    configure
+                        .EnableAllVars()
+                        .SetProject(Solution.Directory)
+                        .SetCISystem(NerdbankGitVersioningCISystem.GitHubActions)));
 
     Target Test => _ => _
-        .DependsOn(DotNetBuild)
+        .DependsOn(Build)
         .Executes(() =>
         {
         });
@@ -112,20 +97,17 @@ class ReactiveMarblesBuild : NukeBuild
         .DependsOn(Test)
         .DependsOn(Nerdbank)
         .Executes(() =>
-        {
-            DotNetTasks
-                .DotNetPack(settings => settings.SetProject(Solution).SetConfiguration(Configuration)
+            DotNetPack(configure =>
+                configure
+                    .SetProject(Solution)
+                    .SetConfiguration(Configuration)
                     .EnableNoRestore()
-                    .SetVerbosity(DotNetVerbosity.Minimal));
-        });
+                    .SetVerbosity(DotNetVerbosity.Minimal)));
 
-    Target Build => _ => _
+    Target Default => _ => _
         .DependsOn(Clean)
         .DependsOn(Nerdbank)
-        .DependsOn(DotNetRestore)
-        .DependsOn(DotNetBuild)
-        .DependsOn(Pack)
-        .Executes(() =>
-        {
-        });
+        .DependsOn(Restore)
+        .DependsOn(Build)
+        .DependsOn(Pack);
 }
